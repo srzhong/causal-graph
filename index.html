@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="css/kg.css">
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <style>
+        body {
+            background: linear-gradient(90deg, #ffffff, #d2e0f8)
+        }
+
+        .container {
+            width: 100%;
+            height: 35rem;
+
+            float: right;
+            display: flex;
+        }
+
+        .btn_container {
+            width: 100%;
+            height: 10rem;
+            text-align: center;
+        }
+
+        .btn_container:after {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        #toast-container {
+            top: 80%;
+            right: 45%;
+        }
+    </style>
+</head>
+
+<body>
+    <nav style="background:#007497e0">
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo" style="
+            margin-left: 1rem;
+            font-size: 1.2rem;
+        ">事件因果图谱可视化</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="http://www.molapages.xyz/molablog/page/72">文档</a></li>
+                <li><a href="https://github.com/molamolaxxx/KGView">Github</a></li>
+
+            </ul>
+        </div>
+    </nav>
+    <!-- <div id="container" class="container"></div> -->
+
+    <div class="row" style="
+    margin-top: 10px;
+    display: flex;
+">
+        <ul class="collapsible" data-collapsible="accordion" style="
+        margin-left: 4rem;width: 26rem
+    ">
+            <li class="active">
+                <div class="collapsible-header">节点数据</div>
+                <div class="collapsible-body" style="display: block;">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="t1" class="materialize-textarea"
+                                        style="border-bottom: 0px;width: 24rem;"></textarea>
+                                    <label for="textarea1">请输入节点数据</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li class="active">
+                <div class="collapsible-header">关系数据</div>
+                <div class="collapsible-body" style="display: block;">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="t2" class="materialize-textarea"
+                                        style="border-bottom: 0px;width: 24rem;"></textarea>
+                                    <label for="textarea1">请输入关系数据</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li class="active">
+                <div class="collapsible-header">节点配色</div>
+                <div class="collapsible-body" style="display: block;">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="t3" class="materialize-textarea"
+                                        style="border-bottom: 0px;width: 24rem;"></textarea>
+                                    <label for="textarea1">请输入节点配色</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li class="active">
+                <div class="collapsible-header">关系配色</div>
+                <div class="collapsible-body" style="display: block;">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="t4" class="materialize-textarea"
+                                        style="border-bottom: 0px;width: 24rem;"></textarea>
+                                    <label for="textarea1">请输入关系配色</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li class="active">
+                <div class="collapsible-header">回显内容</div>
+                <div class="collapsible-body" style="display: block;">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="t5" class="materialize-textarea"
+                                        style="border-bottom: 0px;width: 24rem;"></textarea>
+                                    <label for="textarea1">请输入回显内容</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li class="btn_container">
+                <a class="waves-effect waves-light btn-large" href="javascript:render();">渲染</a>
+            </li>
+        </ul>
+        <div class="col s12 m7" style="
+            float: right;
+            margin-right: 4rem;
+        ">
+            <div class="card">
+
+                <div id="container" class="card-image container">
+                    <span class="card-title" style="color: #868181;">事件因果图谱</span>
+                </div>
+
+
+                <div class="card-content" style="
+                background: aliceblue;
+            ">
+                    <p>主要参考<a href='https://github.com/molamolaxxx/KGView'>KGView</a>（d3.js）实现的图谱可视化</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/d3.v3.min.js"></script>
+    <script src="js/kg.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script>
+
+        node_obj = {"b8384812afc633fb5b3560de8b2647f9": {"type": "default", "name": "营业收入较去年同期也有所下降 (,营业收入,有)"}, "4e33d783e02240f66d803e610f90902e": {"type": "default", "name": "涨幅较高 (,,)"}, "90670c161e31b0c13fce0bb0496d9d7f": {"type": "default", "name": "食品通胀大升17% (食品,通胀,大升)"}, "6391cb2d115c12adb769ae774b8ccbc5": {"type": "default", "name": "高价回落 (,,)"}, "ae606c5f08b200e965f898c30c876d86": {"type": "default", "name": "食品价格持续下滑 (食品,价格,下跌)"}, "c6c9e3793c1a058f5c50faedd07adb32": {"type": "default", "name": "整个板块股价涨幅较大 (块,股价,涨幅较大)"}, "3c0be3e47184d9c5c4ed7c259c33417a": {"type": "default", "name": "2018年度，公司净利润较去年同期有较大增长 (,净利润,同期)"}, "dc53f0db7f7fae94ecf5e484e8af0e07": {"type": "default", "name": "整体毛利率下降 (,毛利率,)"}, "7710d019c77b33669e786462b26fdac2": {"type": "default", "name": "市场鸡蛋供应量偏紧 (鸡蛋,供应量,偏紧)"}, "d6e85be31bc83cdb5355fa9fafdc7de6": {"type": "default", "name": "3月消费者价格指数（cpi）同比上涨0.4%，创下 (（cpi）,数,同比上涨)"}, "bba86b401c6ae67146992c79d2a8a9d4": {"type": "default", "name": "鸡蛋价格回升 (鸡蛋,价格,上涨)"}, "9c7a30c938425428c14d353db7ca74fe": {"type": "default", "name": "2019年生猪产能大幅度下降 (生猪,产能,下降)"}, "477c0392c35e838f94c7cd40bd4e7db0": {"type": "default", "name": "基金损失的可能 (,基金,损失)"}, "d66021dc7b2e061e1811b5e2b2ba113a": {"type": "default", "name": "鸡蛋价格大幅下滑 (鸡蛋,价格,下跌)"}, "80ddca7eafdbd542e51f85df2ea33bcb": {"type": "default", "name": "春节过后市场对于鸡蛋需求量下降 (鸡蛋,需求,下降)"}, "d9b028721b7bffc3e3250475a61a717e": {"type": "default", "name": "消费维持平稳 (,消费,)"}, "a76e1fa17aac179ee50a7de2f20a0769": {"type": "default", "name": "采购双氧水热情较高 (,,采购)"}, "705643eba019516c8df0c6a7e9e38d86": {"type": "default", "name": "蛋类下降6.3% (蛋类,,下降)"}, "e8cdb1b3dcced6ec3ec9b7f15bd64bfb": {"type": "default", "name": "近期鸡蛋价格有所回落 (鸡蛋,价格,回落)"}, "9f9068f7378efef80dc04cf36c6e8eff": {"type": "default", "name": "牛羊肉、禽肉、禽蛋和水产品等量足价稳 (禽肉#禽蛋#水产品,量,足价稳)"}, "dfbd0db43b8fffc7e6a063d946553af0": {"type": "default", "name": "价格上涨 (,价格,)"}, "68c193337d3e0e727de897b3bd196998": {"type": "default", "name": "利率显然还不会处在下行状态 (,利率,下行状)"}, "b0386c67ba204b914b589bbfec3f654f": {"type": "default", "name": "分析师认为菲律宾上个月通货膨胀可能会放缓至3%以下 (,通货膨胀,放缓)"}, "c65a0e7d7901f8d2bbf1cc04e0f5bc4a": {"type": "default", "name": "分日本企业业绩下降 (日本企业,业绩,下降)"}, "8762d1b809b2a2a12f11d5ae59f8564d": {"type": "default", "name": "产品制造成本上升 (,产品制造成本,)"}, "2bf324afa0526ce8bb059969bfc9e19b": {"type": "default", "name": "无收益率资产黄金进一步遭到抛弃 (黄金,,抛弃)"}, "dae3ad418242adb363eb50447df221e0": {"type": "default", "name": "3月通胀数据有走高的态势 (通胀数据,,走高)"}, "b1091facde8d4b9f2530668fa625d603": {"type": "default", "name": "资本市场下挫 (资本市场,,下挫)"}, "b3f745f8fd2d892f75c5b1b0340894df": {"type": "default", "name": "牛羊肉及蛋类等价格出现上涨行情 (牛羊肉#蛋类,价格,上涨)"}, "1f08617d18a26af5c665f1049d54b109": {"type": "default", "name": "物价涨幅回落 (,物价,)"}, "7864d51329a5facf7081599ab22b20cc": {"type": "default", "name": "养殖场处于亏损状态 (养殖场,,亏损状态)"}, "d6d51c7351a47f61c3bf590f68e5e576": {"type": "default", "name": "ecdna (ecdn,,)"}, "cf9613177d73f61c5a3ea84a8cbb8fdb": {"type": "default", "name": "预计2月cpi同比大幅下降至1.1% (cpi,,大幅下降)"}, "09b4ac232760b95d6e9c06b9d05867b8": {"type": "default", "name": "牛肉、羊肉、肉鸡价格走高 (牛肉#羊肉#肉鸡,价格,走高)"}, "70830fc7aa87d233f779a7dc3786565c": {"type": "default", "name": "公司预计2019年净利润有望达到138.5亿元-143亿元 (,净利润,)"}, "997c605be56f943a3dbdcbd456e96c5d": {"type": "default", "name": "猪肉价格环比回落 (猪肉,价格,回落)"}, "532c8bb5ec2019214855a2f5a66a720f": {"type": "default", "name": "债市杠杆资金成本上行 (,市杠杆资金成本,)"}, "e0942d10624c955514a6d0d307676eb3": {"type": "default", "name": "cpi同比5-7月或出现的阶段性上行 (cpi,,阶段性上行)"}, "25423d277b4677491c30fdd5d8e302c5": {"type": "default", "name": "生猪供给偏紧 (生猪,供给,偏紧)"}, "99af9509cd4c558dd5790f7bc503d8cf": {"type": "default", "name": "猪价上涨较为强势 (猪,价,上涨)"}, "5222a0eae0a2c11d2fffcb9b10221265": {"type": "default", "name": "猪肉价格未来还将持续上涨 (猪肉,价格,上涨)"}, "af77c72b945b5f56fa01223bba4900c9": {"type": "default", "name": "牛羊鸡鸭等相关替代畜肉价格上涨 (畜肉,价格,上涨)"}, "b7b0e38c9d3fa81d7994894e9df447ee": {"type": "default", "name": "上涨 (,,)"}, "9b60e5258b1bc608823114e6017ef22d": {"type": "default", "name": "决定在3月20日对价格上调3%-5% (,价格,上调)"}, "d4cc6ee25dc45737133f91c23712108d": {"type": "default", "name": "通胀压力的上行 (,通胀压力,)"}, "78e76e2cd55a0f6132a8ffc599f82e8c": {"type": "default", "name": "全国猪肉销量都下降了不少 (猪肉,销量,下滑)"}, "3aa4d033459b9c7ea63570d314a10bc0": {"type": "default", "name": "外地蔬菜价格的上涨 (蔬菜,价格,上涨)"}, "b9a1403ec0c9d230e8227352e3783f13": {"type": "default", "name": "后期猪肉价格上涨的压力依然较大 (猪肉,压力,上涨)"}, "32581caf854b5cdc95a45506018c9469": {"type": "default", "name": "去年猪肉价格走低 (猪肉,价格,走低)"}, "31446bdaa5fddb984111636ae4e2a9ef": {"type": "default", "name": "一家墨西哥餐厅的菜单价格从10美元上涨到14美元 (餐厅,菜单价格,上涨)"}, "23dbde454fe993863f172b51c532c5c0": {"type": "default", "name": "btc每日确认交易创16个月以来最高点 (btc,交易,)"}, "61191439c8a2ad0d33b7073bee7cf8ba": {"type": "default", "name": "2018年上半年封闭式非保本理财产品兑付客户收益率上升 (封闭式非保本理财产品,客户收益率,兑付)"}, "868894618d13e82cf4507f04febd878b": {"type": "default", "name": "中资券商股受捧 (中资券商股,,受捧)"}, "4952ee77313a3c7c8be9d7130dda3738": {"type": "default", "name": "2019年度，公司肉猪销售收入同比上升20.03% (,肉猪销售收入,同比上升)"}, "b9d95e9e889a87efc75e57a0d89df62b": {"type": "default", "name": "他们的投资意向仍然很低 (,投资意向,)"}, "700f13b52a4d6e83917e5077e3971e42": {"type": "default", "name": "农业板块业绩出现大幅波动 (农业板块,业绩,大幅波动)"}, "344783352c3f708a7f82351dd4a2b7ce": {"type": "default", "name": "禽肉价格下跌 (禽肉,价格,环比下降)"}, "f58ae9822a0623d5bd28b865e350196a": {"type": "default", "name": "区域价差逐步拉大 (,区域价差,)"}, "de8b21c38b60b4533a7430d76722b299": {"type": "default", "name": "蛋鸡存栏量下降 (蛋鸡,存栏量,下降)"}, "f80332d9acd40d28ef277535db286135": {"type": "default", "name": "鸡蛋价格环比上涨9.6%，涨幅较大 (鸡蛋,价格,上涨)"}, "60b7fcc528a43d1a9abbd2d3e583bc2a": {"type": "default", "name": "市场对通缩担忧 (,通胀,)"}, "439e36e05b3abdeb17d91129acae01b7": {"type": "default", "name": "近期进口猪肉量增加 (猪肉,量,增加)"}, "cd0cdac93d5ff7db32efb490cbaab28d": {"type": "default", "name": "11月股市下跌 (股市,,下跌)"}, "3098646278251248382246952a730bef": {"type": "default", "name": "决定针对旗下的全线品牌复印纸及代加工品牌价格上调200元/吨 (复印纸,代加工品牌价格,上调)"}, "653122679d03719ac7c150a3e50c8777": {"type": "default", "name": "自2018年4月以来美国猪肉进口量出现大幅下滑 (猪肉,进口量,大幅下滑)"}, "46a390f8a6847019cad8bbc69f3425e0": {"type": "default", "name": "利润相应减少 (,营业利润,)"}, "8eed12849824a2faeec0ddbbeaf6a961": {"type": "default", "name": "受到猪肉价格上涨影响 (猪肉,价格,上涨)"}, "e0575ff604e70e6c061a01c60ee90e23": {"type": "default", "name": "食品涨幅进一步扩大 (食品,涨幅,扩大)"}, "b3c723dccb5dea96070c44f79fe379e2": {"type": "default", "name": "国内制鞋业的国际分工优势逐渐减弱 (国内制鞋业,国际分工优势,减弱)"}, "ee083a127e3181222bd05d1b95d3dee7": {"type": "default", "name": "蛋鸡养殖企业造成的经济损失 (蛋鸡养殖企业,经济,造成)"}, "5a05709d0b4b677cc0943b0c51f6f008": {"type": "default", "name": "年后部分老鸡淘汰 (老鸡,,被淘汰)"}, "837628116190f2ea012d4a5aefa8ce91": {"type": "default", "name": "沪指大涨 (沪指,,上涨)"}, "8f279a2d0ea4dc75c1bc9c026aa5cacb": {"type": "default", "name": "春节以来猪价持续上涨 (猪,价,上涨)"}, "d4290a8f7f91f54ce529500b6a04e443": {"type": "default", "name": "猪肉价格高位 (猪肉,价格,高位)"}, "d9f818c10f85d73db75c738fd0114515": {"type": "default", "name": "价格上升 (,价格,)"}, "367a86fa45dd7fe8a5eba49c2cd3ab8d": {"type": "default", "name": "2月消费者通胀率同比上涨2.57% (消费者,通胀率,同比上涨)"}, "5e239a07df66037e4966d5b2c74bca42": {"type": "default", "name": "淘汰蛋鸡的养殖场将积极补栏 (养殖场,,补栏)"}, "46808a75640a9c36f60a9df1cd4306e2": {"type": "default", "name": "市场利率上行 (,市场利率,幅)"}, "b2d928e5bcf1a82c8cd2b283b4d02ff9": {"type": "default", "name": "美国猪肉不再具有价格优势 (美国猪肉,,具有)"}, "2a34e6af5fc98601d69f71b9f0d5fc42": {"type": "default", "name": "中华食品生产鸡蛋豆腐原料之一的鸡蛋供货紧张的状况已缓和 (蛋,供货,紧张)"}, "b7c37a0005ccb2c22f9897a3ab3723a6": {"type": "default", "name": "市场资源压力明显增加 (,压力,)"}, "e2f6db29d50e62a4294b59a305a5f41b": {"type": "default", "name": "蛋价快速上涨 (,蛋价,)"}, "c77ae27f1ef98779557d4f8b252a39dd": {"type": "default", "name": "蛋鸡存栏量一度井喷式增长 (蛋鸡,存栏量,增长)"}, "4b7ff42ba73edced569dd95dda14cf35": {"type": "default", "name": "鸡蛋市场的供应量有所减少 (鸡蛋,供应量,减少)"}, "f5c52286c798c37d17e10f66af38e7fb": {"type": "default", "name": "毛利率较2016年和2017年都有所下降 (,毛利率,有)"}, "1f2956ccf96e20617e223407cbf1668e": {"type": "master", "name": "生猪存栏环比回升 (生猪,存栏,环比回升)"}, "16c5b4dbffeea8ae582536bf4746e964": {"type": "default", "name": "单头销售均价同比上涨约78% (,单头销售均价,同比上涨)"}, "98e04cffc61cb92cf87a7b6d1e02a55e": {"type": "default", "name": "生猪的供应比较紧缺 (生猪,供应,偏紧)"}, "05f60719db0378a56bef3ee56742f965": {"type": "default", "name": "国内养殖户补栏积极性下降 (国内养殖户,补栏积极性,下降)"}, "e066f2e820038ad762e815429f452d67": {"type": "default", "name": "价格持续上升 (,价格,)"}, "372d5f4d63da77dffbaa4a21c161f6e2": {"type": "default", "name": "降幅较上月扩大6.6个百分点 (,降幅,扩大)"}, "96bf6b714cee23d10f2276b72344f179": {"type": "default", "name": "cpi走高 (cpi,,走高)"}} 
+
+        edge_obj = [{"from_node": "1f2956ccf96e20617e223407cbf1668e", "event_pair": "生猪存栏环比回升->国内猪肉价格回落明显", "score": 1.0, "to_node": "997c605be56f943a3dbdcbd456e96c5d", "event_pair_mention": ""}, {"from_node": "997c605be56f943a3dbdcbd456e96c5d", "event_pair": "猪肉价格的持续下降->猪肉价格的低迷", "score": 1.0, "to_node": "32581caf854b5cdc95a45506018c9469", "event_pair_mention": ""}, {"from_node": "32581caf854b5cdc95a45506018c9469", "event_pair": "国内猪肉价格仍处于低位->美国猪肉不再具有价格优势", "score": 0.5, "to_node": "b2d928e5bcf1a82c8cd2b283b4d02ff9", "event_pair_mention": ""}, {"from_node": "32581caf854b5cdc95a45506018c9469", "event_pair": "去年疫情后猪肉价格持续低迷->猪肉价格出现上涨", "score": 0.5, "to_node": "5222a0eae0a2c11d2fffcb9b10221265", "event_pair_mention": ""}, {"from_node": "5222a0eae0a2c11d2fffcb9b10221265", "event_pair": "猪肉价格持续上涨->cpi持续走高", "score": 2.0, "to_node": "96bf6b714cee23d10f2276b72344f179", "event_pair_mention": ""}, {"from_node": "96bf6b714cee23d10f2276b72344f179", "event_pair": "cpi的高企->利率显然还不会处在下行状态", "score": 1.0, "to_node": "68c193337d3e0e727de897b3bd196998", "event_pair_mention": ""}, {"from_node": "96bf6b714cee23d10f2276b72344f179", "event_pair": "cpi持续走高->11月股市下跌", "score": 1.0, "to_node": "cd0cdac93d5ff7db32efb490cbaab28d", "event_pair_mention": ""}, {"from_node": "96bf6b714cee23d10f2276b72344f179", "event_pair": "cpi走高->消费维持平稳", "score": 1.0, "to_node": "d9b028721b7bffc3e3250475a61a717e", "event_pair_mention": ""}, {"from_node": "5222a0eae0a2c11d2fffcb9b10221265", "event_pair": "10月猪肉价格上升->食品涨幅进一步扩大", "score": 1.0, "to_node": "e0575ff604e70e6c061a01c60ee90e23", "event_pair_mention": ""}, {"from_node": "5222a0eae0a2c11d2fffcb9b10221265", "event_pair": "猪肉价格明显上涨->猪肉进口量增加", "score": 1.0, "to_node": "439e36e05b3abdeb17d91129acae01b7", "event_pair_mention": ""}, {"from_node": "439e36e05b3abdeb17d91129acae01b7", "event_pair": "猪肉进口量增加->国内猪肉价格上涨", "score": 1.0, "to_node": "8eed12849824a2faeec0ddbbeaf6a961", "event_pair_mention": ""}, {"from_node": "8eed12849824a2faeec0ddbbeaf6a961", "event_pair": "猪肉价格飙升->食品通胀大升17%", "score": 1.0, "to_node": "90670c161e31b0c13fce0bb0496d9d7f", "event_pair_mention": ""}, {"from_node": "8eed12849824a2faeec0ddbbeaf6a961", "event_pair": "受到猪肉价格上涨影响->3月通胀数据有走高的态势", "score": 1.0, "to_node": "dae3ad418242adb363eb50447df221e0", "event_pair_mention": ""}, {"from_node": "8eed12849824a2faeec0ddbbeaf6a961", "event_pair": "国内猪肉价格上涨->全球猪肉价格上涨", "score": 1.0, "to_node": "5222a0eae0a2c11d2fffcb9b10221265", "event_pair_mention": ""}, {"from_node": "8eed12849824a2faeec0ddbbeaf6a961", "event_pair": "春节后猪肉价格上涨->整个板块股价涨幅较大", "score": 1.0, "to_node": "c6c9e3793c1a058f5c50faedd07adb32", "event_pair_mention": ""}, {"from_node": "8eed12849824a2faeec0ddbbeaf6a961", "event_pair": "猪肉价格上行引->cpi同比5-7月或出现的阶段性上行", "score": 1.0, "to_node": "e0942d10624c955514a6d0d307676eb3", "event_pair_mention": ""}, {"from_node": "439e36e05b3abdeb17d91129acae01b7", "event_pair": "近期进口猪肉量增加->牛羊肉、禽肉、禽蛋和水产品等量足价稳", "score": 1.0, "to_node": "9f9068f7378efef80dc04cf36c6e8eff", "event_pair_mention": ""}, {"from_node": "5222a0eae0a2c11d2fffcb9b10221265", "event_pair": "2019年猪肉价格上涨->公司预计2019年净利润有望达到138.5亿元-143亿元", "score": 1.0, "to_node": "70830fc7aa87d233f779a7dc3786565c", "event_pair_mention": ""}, {"from_node": "32581caf854b5cdc95a45506018c9469", "event_pair": "国内猪肉价格仍处于低位->自2018年4月以来美国猪肉进口量出现大幅下滑", "score": 0.5, "to_node": "653122679d03719ac7c150a3e50c8777", "event_pair_mention": ""}, {"from_node": "653122679d03719ac7c150a3e50c8777", "event_pair": "美国猪肉出口量大幅减少->美国生猪产能的大幅收缩", "score": 1.0, "to_node": "9c7a30c938425428c14d353db7ca74fe", "event_pair_mention": ""}, {"from_node": "9c7a30c938425428c14d353db7ca74fe", "event_pair": "国内整体生猪产能下降->生猪供应偏紧", "score": 1.0, "to_node": "98e04cffc61cb92cf87a7b6d1e02a55e", "event_pair_mention": ""}, {"from_node": "98e04cffc61cb92cf87a7b6d1e02a55e", "event_pair": "生猪供应稀少->高价回落", "score": 1.0, "to_node": "6391cb2d115c12adb769ae774b8ccbc5", "event_pair_mention": ""}, {"from_node": "98e04cffc61cb92cf87a7b6d1e02a55e", "event_pair": "省内生猪整体供应偏紧->猪价持续上涨", "score": 1.0, "to_node": "8f279a2d0ea4dc75c1bc9c026aa5cacb", "event_pair_mention": ""}, {"from_node": "9c7a30c938425428c14d353db7ca74fe", "event_pair": "我国生猪产能下降较多->猪肉价格持续走高", "score": 1.0, "to_node": "d4290a8f7f91f54ce529500b6a04e443", "event_pair_mention": ""}, {"from_node": "d4290a8f7f91f54ce529500b6a04e443", "event_pair": "猪肉价格持续高位->鸡蛋价格上涨", "score": 1.0, "to_node": "f80332d9acd40d28ef277535db286135", "event_pair_mention": ""}, {"from_node": "d4290a8f7f91f54ce529500b6a04e443", "event_pair": "猪肉价格大幅攀升->牛肉、羊肉、肉鸡价格走高", "score": 1.0, "to_node": "09b4ac232760b95d6e9c06b9d05867b8", "event_pair_mention": ""}, {"from_node": "d4290a8f7f91f54ce529500b6a04e443", "event_pair": "猪肉价格的快速攀升->涨幅较高", "score": 1.0, "to_node": "4e33d783e02240f66d803e610f90902e", "event_pair_mention": ""}, {"from_node": "d4290a8f7f91f54ce529500b6a04e443", "event_pair": "猪肉价格的显著上升->四月份通胀压力也可能会有明显的上升", "score": 1.0, "to_node": "d4cc6ee25dc45737133f91c23712108d", "event_pair_mention": ""}, {"from_node": "d4290a8f7f91f54ce529500b6a04e443", "event_pair": "猪肉价格高位->牛羊肉及蛋类等价格出现上涨行情", "score": 1.0, "to_node": "b3f745f8fd2d892f75c5b1b0340894df", "event_pair_mention": ""}, {"from_node": "9c7a30c938425428c14d353db7ca74fe", "event_pair": "生猪价格大幅度下跌->公司利润较去年同期有较大幅度的下降", "score": 0.6666666666666666, "to_node": "3c0be3e47184d9c5c4ed7c259c33417a", "event_pair_mention": ""}, {"from_node": "3c0be3e47184d9c5c4ed7c259c33417a", "event_pair": "报告期内，公司产品的销售量较去年同期增长->销售收入较去年同期有所下降", "score": 0.5, "to_node": "b8384812afc633fb5b3560de8b2647f9", "event_pair_mention": ""}, {"from_node": "3c0be3e47184d9c5c4ed7c259c33417a", "event_pair": "报告期内，公司产品的销售量较去年同期增长->利润相应减少", "score": 0.5, "to_node": "46a390f8a6847019cad8bbc69f3425e0", "event_pair_mention": ""}, {"from_node": "9c7a30c938425428c14d353db7ca74fe", "event_pair": "国内生猪产能整体下降->单头销售均价同比上涨约78%", "score": 0.5, "to_node": "16c5b4dbffeea8ae582536bf4746e964", "event_pair_mention": ""}, {"from_node": "9c7a30c938425428c14d353db7ca74fe", "event_pair": "国内生猪产能整体下降->生猪供给偏紧", "score": 0.5, "to_node": "25423d277b4677491c30fdd5d8e302c5", "event_pair_mention": ""}, {"from_node": "25423d277b4677491c30fdd5d8e302c5", "event_pair": "国内生猪供给偏紧->猪价上涨", "score": 1.1666666666666667, "to_node": "99af9509cd4c558dd5790f7bc503d8cf", "event_pair_mention": ""}, {"from_node": "25423d277b4677491c30fdd5d8e302c5", "event_pair": "生猪供给偏紧->后期猪肉价格上涨压力依然较大", "score": 1.0, "to_node": "b9a1403ec0c9d230e8227352e3783f13", "event_pair_mention": ""}, {"from_node": "25423d277b4677491c30fdd5d8e302c5", "event_pair": "国内生猪供给偏紧的影响->2019年度，公司肉猪销售收入同比上升20.03%", "score": 1.0, "to_node": "4952ee77313a3c7c8be9d7130dda3738", "event_pair_mention": ""}, {"from_node": "25423d277b4677491c30fdd5d8e302c5", "event_pair": "国内生猪供给偏紧->价格上升", "score": 0.5, "to_node": "d9f818c10f85d73db75c738fd0114515", "event_pair_mention": ""}, {"from_node": "25423d277b4677491c30fdd5d8e302c5", "event_pair": "南北生猪供给失衡->区域价差逐步拉大", "score": 0.3333333333333333, "to_node": "f58ae9822a0623d5bd28b865e350196a", "event_pair_mention": ""}, {"from_node": "32581caf854b5cdc95a45506018c9469", "event_pair": "去年疫情后猪肉价格持续低迷->养殖场处于亏损状态", "score": 0.5, "to_node": "7864d51329a5facf7081599ab22b20cc", "event_pair_mention": ""}, {"from_node": "32581caf854b5cdc95a45506018c9469", "event_pair": "去年猪肉价格走低->国内养殖户补栏积极性下降", "score": 0.3333333333333333, "to_node": "05f60719db0378a56bef3ee56742f965", "event_pair_mention": ""}, {"from_node": "997c605be56f943a3dbdcbd456e96c5d", "event_pair": "猪肉价格下行->农业板块业绩出现大幅波动", "score": 1.0, "to_node": "700f13b52a4d6e83917e5077e3971e42", "event_pair_mention": ""}, {"from_node": "997c605be56f943a3dbdcbd456e96c5d", "event_pair": "近期猪肉价格下降->鸡蛋价格回落", "score": 1.0, "to_node": "d66021dc7b2e061e1811b5e2b2ba113a", "event_pair_mention": ""}, {"from_node": "d66021dc7b2e061e1811b5e2b2ba113a", "event_pair": "鸡蛋价格下跌->蛋鸡养殖企业造成的经济损失", "score": 1.0, "to_node": "ee083a127e3181222bd05d1b95d3dee7", "event_pair_mention": ""}, {"from_node": "d66021dc7b2e061e1811b5e2b2ba113a", "event_pair": "鸡蛋价格大幅下滑->产区老鸡大量被淘汰", "score": 0.5, "to_node": "5a05709d0b4b677cc0943b0c51f6f008", "event_pair_mention": ""}, {"from_node": "5a05709d0b4b677cc0943b0c51f6f008", "event_pair": "年后部分老鸡淘汰->价格持续上升", "score": 1.0, "to_node": "e066f2e820038ad762e815429f452d67", "event_pair_mention": ""}, {"from_node": "e066f2e820038ad762e815429f452d67", "event_pair": "料价格持续上涨->决定针对旗下的全线品牌复印纸及代加工品牌价格上调200元/吨", "score": 1.0, "to_node": "3098646278251248382246952a730bef", "event_pair_mention": ""}, {"from_node": "e066f2e820038ad762e815429f452d67", "event_pair": "数量的持续上升->ecdna", "score": 1.0, "to_node": "d6d51c7351a47f61c3bf590f68e5e576", "event_pair_mention": ""}, {"from_node": "e066f2e820038ad762e815429f452d67", "event_pair": "价格持续上涨->采购双氧水热情较高", "score": 0.5, "to_node": "a76e1fa17aac179ee50a7de2f20a0769", "event_pair_mention": ""}, {"from_node": "e066f2e820038ad762e815429f452d67", "event_pair": "价格持续上涨->btc每日确认交易创16个月以来最高点", "score": 0.5, "to_node": "23dbde454fe993863f172b51c532c5c0", "event_pair_mention": ""}, {"from_node": "d66021dc7b2e061e1811b5e2b2ba113a", "event_pair": "鸡蛋价格大幅下滑->蛋鸡存栏量下降", "score": 0.25, "to_node": "de8b21c38b60b4533a7430d76722b299", "event_pair_mention": ""}, {"from_node": "de8b21c38b60b4533a7430d76722b299", "event_pair": "夏季蛋鸡存栏量和产蛋率都会下降->鸡蛋价格适度上涨", "score": 1.0, "to_node": "bba86b401c6ae67146992c79d2a8a9d4", "event_pair_mention": ""}, {"from_node": "bba86b401c6ae67146992c79d2a8a9d4", "event_pair": "鸡蛋价格回升->淘汰蛋鸡的养殖场将积极补栏", "score": 1.0, "to_node": "5e239a07df66037e4966d5b2c74bca42", "event_pair_mention": ""}, {"from_node": "bba86b401c6ae67146992c79d2a8a9d4", "event_pair": "鸡蛋价格持续上涨->蛋鸡存栏量一度井喷式增长", "score": 1.0, "to_node": "c77ae27f1ef98779557d4f8b252a39dd", "event_pair_mention": ""}, {"from_node": "de8b21c38b60b4533a7430d76722b299", "event_pair": "蛋鸡存栏下降->近期鸡蛋供应量偏紧", "score": 1.0, "to_node": "7710d019c77b33669e786462b26fdac2", "event_pair_mention": ""}, {"from_node": "7710d019c77b33669e786462b26fdac2", "event_pair": "市场鸡蛋供应量偏紧->蛋价快速上涨", "score": 2.0, "to_node": "e2f6db29d50e62a4294b59a305a5f41b", "event_pair_mention": ""}, {"from_node": "7710d019c77b33669e786462b26fdac2", "event_pair": "市场的鸡蛋供应量增多->节后市场对鸡蛋的需求下跌", "score": 1.0, "to_node": "80ddca7eafdbd542e51f85df2ea33bcb", "event_pair_mention": ""}, {"from_node": "80ddca7eafdbd542e51f85df2ea33bcb", "event_pair": "春节过后市场对于鸡蛋需求量下降->中华食品生产鸡蛋豆腐原料之一的鸡蛋供货紧张的状况已缓和", "score": 1.0, "to_node": "2a34e6af5fc98601d69f71b9f0d5fc42", "event_pair_mention": ""}, {"from_node": "80ddca7eafdbd542e51f85df2ea33bcb", "event_pair": "对鸡蛋需求下降->蛋类下降6.3%", "score": 1.0, "to_node": "705643eba019516c8df0c6a7e9e38d86", "event_pair_mention": ""}, {"from_node": "80ddca7eafdbd542e51f85df2ea33bcb", "event_pair": "春节过后鸡蛋需求量有所下降->鸡蛋价格持续回落", "score": 1.0, "to_node": "e8cdb1b3dcced6ec3ec9b7f15bd64bfb", "event_pair_mention": ""}, {"from_node": "80ddca7eafdbd542e51f85df2ea33bcb", "event_pair": "消费者对鸡蛋的需求量逐渐降低->鸡蛋价格持续下降", "score": 0.5, "to_node": "d66021dc7b2e061e1811b5e2b2ba113a", "event_pair_mention": ""}, {"from_node": "80ddca7eafdbd542e51f85df2ea33bcb", "event_pair": "消费者对鸡蛋的需求量逐渐降低->降幅较上月扩大6.6个百分点", "score": 0.5, "to_node": "372d5f4d63da77dffbaa4a21c161f6e2", "event_pair_mention": ""}, {"from_node": "de8b21c38b60b4533a7430d76722b299", "event_pair": "蛋鸡存栏量减少->供应压力明显增加", "score": 0.3333333333333333, "to_node": "b7c37a0005ccb2c22f9897a3ab3723a6", "event_pair_mention": ""}, {"from_node": "de8b21c38b60b4533a7430d76722b299", "event_pair": "蛋鸡存栏量减少->价格上涨", "score": 0.3333333333333333, "to_node": "dfbd0db43b8fffc7e6a063d946553af0", "event_pair_mention": ""}, {"from_node": "dfbd0db43b8fffc7e6a063d946553af0", "event_pair": "价格上涨->猪肉的销量下滑", "score": 0.05128205128205128, "to_node": "78e76e2cd55a0f6132a8ffc599f82e8c", "event_pair_mention": ""}, {"from_node": "dfbd0db43b8fffc7e6a063d946553af0", "event_pair": "价格上涨->外地蔬菜价格的上涨", "score": 0.02564102564102564, "to_node": "3aa4d033459b9c7ea63570d314a10bc0", "event_pair_mention": ""}, {"from_node": "dfbd0db43b8fffc7e6a063d946553af0", "event_pair": "价格上涨->分日本企业业绩下降", "score": 0.02564102564102564, "to_node": "c65a0e7d7901f8d2bbf1cc04e0f5bc4a", "event_pair_mention": ""}, {"from_node": "dfbd0db43b8fffc7e6a063d946553af0", "event_pair": "价格上涨->一家墨西哥餐厅的菜单价格从10美元上涨到14美元", "score": 0.02564102564102564, "to_node": "31446bdaa5fddb984111636ae4e2a9ef", "event_pair_mention": ""}, {"from_node": "dfbd0db43b8fffc7e6a063d946553af0", "event_pair": "价格上涨->公司生产成本上升", "score": 0.02564102564102564, "to_node": "8762d1b809b2a2a12f11d5ae59f8564d", "event_pair_mention": ""}, {"from_node": "8762d1b809b2a2a12f11d5ae59f8564d", "event_pair": "制造成本的持续上升->整体毛利率受损", "score": 1.0, "to_node": "dc53f0db7f7fae94ecf5e484e8af0e07", "event_pair_mention": ""}, {"from_node": "8762d1b809b2a2a12f11d5ae59f8564d", "event_pair": "产品制造成本上升->毛利率有所下降", "score": 1.0, "to_node": "f5c52286c798c37d17e10f66af38e7fb", "event_pair_mention": ""}, {"from_node": "8762d1b809b2a2a12f11d5ae59f8564d", "event_pair": "产品制造成本大幅度上涨->决定在3月20日对价格上调3%-5%", "score": 1.0, "to_node": "9b60e5258b1bc608823114e6017ef22d", "event_pair_mention": ""}, {"from_node": "8762d1b809b2a2a12f11d5ae59f8564d", "event_pair": "对成本上升->他们的投资意向仍然很低", "score": 1.0, "to_node": "b9d95e9e889a87efc75e57a0d89df62b", "event_pair_mention": ""}, {"from_node": "8762d1b809b2a2a12f11d5ae59f8564d", "event_pair": "制造成本上升->国内制鞋业的国际分工优势逐渐减弱", "score": 0.5, "to_node": "b3c723dccb5dea96070c44f79fe379e2", "event_pair_mention": ""}, {"from_node": "de8b21c38b60b4533a7430d76722b299", "event_pair": "蛋鸡存栏量减少->上涨", "score": 0.3333333333333333, "to_node": "b7b0e38c9d3fa81d7994894e9df447ee", "event_pair_mention": ""}, {"from_node": "b7b0e38c9d3fa81d7994894e9df447ee", "event_pair": "上涨->牛羊鸡鸭等相关替代畜肉价格上涨", "score": 0.5, "to_node": "af77c72b945b5f56fa01223bba4900c9", "event_pair_mention": ""}, {"from_node": "b7b0e38c9d3fa81d7994894e9df447ee", "event_pair": "上涨->沪指大盘上涨", "score": 0.5, "to_node": "837628116190f2ea012d4a5aefa8ce91", "event_pair_mention": ""}, {"from_node": "837628116190f2ea012d4a5aefa8ce91", "event_pair": "沪指上涨->中资券商股受捧", "score": 1.0, "to_node": "868894618d13e82cf4507f04febd878b", "event_pair_mention": ""}, {"from_node": "d66021dc7b2e061e1811b5e2b2ba113a", "event_pair": "鸡蛋价格大幅下滑->鸡蛋的实际供应量较之前有所减少", "score": 0.25, "to_node": "4b7ff42ba73edced569dd95dda14cf35", "event_pair_mention": ""}, {"from_node": "4b7ff42ba73edced569dd95dda14cf35", "event_pair": "端午节过后，鸡蛋消费量有所减少->近期鸡蛋价格回落", "score": 1.0, "to_node": "d66021dc7b2e061e1811b5e2b2ba113a", "event_pair_mention": ""}, {"from_node": "d66021dc7b2e061e1811b5e2b2ba113a", "event_pair": "鸡蛋价格下跌->蛋鸡养殖企业造成的经济损失", "score": 1.0, "to_node": "ee083a127e3181222bd05d1b95d3dee7", "event_pair_mention": ""}, {"from_node": "d66021dc7b2e061e1811b5e2b2ba113a", "event_pair": "鸡蛋价格大幅下滑->产区老鸡大量被淘汰", "score": 0.5, "to_node": "5a05709d0b4b677cc0943b0c51f6f008", "event_pair_mention": ""}, {"from_node": "5a05709d0b4b677cc0943b0c51f6f008", "event_pair": "年后部分老鸡淘汰->价格持续上升", "score": 1.0, "to_node": "e066f2e820038ad762e815429f452d67", "event_pair_mention": ""}, {"from_node": "d66021dc7b2e061e1811b5e2b2ba113a", "event_pair": "鸡蛋价格大幅下滑->蛋鸡存栏量下降", "score": 0.25, "to_node": "de8b21c38b60b4533a7430d76722b299", "event_pair_mention": ""}, {"from_node": "de8b21c38b60b4533a7430d76722b299", "event_pair": "夏季蛋鸡存栏量和产蛋率都会下降->鸡蛋价格适度上涨", "score": 1.0, "to_node": "bba86b401c6ae67146992c79d2a8a9d4", "event_pair_mention": ""}, {"from_node": "de8b21c38b60b4533a7430d76722b299", "event_pair": "蛋鸡存栏下降->近期鸡蛋供应量偏紧", "score": 1.0, "to_node": "7710d019c77b33669e786462b26fdac2", "event_pair_mention": ""}, {"from_node": "de8b21c38b60b4533a7430d76722b299", "event_pair": "蛋鸡存栏量减少->供应压力明显增加", "score": 0.3333333333333333, "to_node": "b7c37a0005ccb2c22f9897a3ab3723a6", "event_pair_mention": ""}, {"from_node": "de8b21c38b60b4533a7430d76722b299", "event_pair": "蛋鸡存栏量减少->价格上涨", "score": 0.3333333333333333, "to_node": "dfbd0db43b8fffc7e6a063d946553af0", "event_pair_mention": ""}, {"from_node": "de8b21c38b60b4533a7430d76722b299", "event_pair": "蛋鸡存栏量减少->上涨", "score": 0.3333333333333333, "to_node": "b7b0e38c9d3fa81d7994894e9df447ee", "event_pair_mention": ""}, {"from_node": "d66021dc7b2e061e1811b5e2b2ba113a", "event_pair": "鸡蛋价格大幅下滑->鸡蛋的实际供应量较之前有所减少", "score": 0.25, "to_node": "4b7ff42ba73edced569dd95dda14cf35", "event_pair_mention": ""}, {"from_node": "4b7ff42ba73edced569dd95dda14cf35", "event_pair": "端午节过后，鸡蛋消费量有所减少->近期鸡蛋价格回落", "score": 1.0, "to_node": "d66021dc7b2e061e1811b5e2b2ba113a", "event_pair_mention": ""}, {"from_node": "997c605be56f943a3dbdcbd456e96c5d", "event_pair": "猪肉价格回落->食品分项整体价格下跌", "score": 1.0, "to_node": "ae606c5f08b200e965f898c30c876d86", "event_pair_mention": ""}, {"from_node": "ae606c5f08b200e965f898c30c876d86", "event_pair": "食品价格连续第五个月持续下跌->2月消费者通胀率同比上涨2.57%", "score": 1.0, "to_node": "367a86fa45dd7fe8a5eba49c2cd3ab8d", "event_pair_mention": ""}, {"from_node": "ae606c5f08b200e965f898c30c876d86", "event_pair": "食品价格下降->物价涨幅回落", "score": 1.0, "to_node": "1f08617d18a26af5c665f1049d54b109", "event_pair_mention": ""}, {"from_node": "ae606c5f08b200e965f898c30c876d86", "event_pair": "食品价格涨幅收窄->2月cpi下降", "score": 1.0, "to_node": "cf9613177d73f61c5a3ea84a8cbb8fdb", "event_pair_mention": ""}, {"from_node": "cf9613177d73f61c5a3ea84a8cbb8fdb", "event_pair": "2月cpi降至1.5%的低位，ppi降至0.1%->对通缩风险的担忧", "score": 1.0, "to_node": "60b7fcc528a43d1a9abbd2d3e583bc2a", "event_pair_mention": ""}, {"from_node": "60b7fcc528a43d1a9abbd2d3e583bc2a", "event_pair": "对通胀的担忧->市场利率上升", "score": 1.0, "to_node": "46808a75640a9c36f60a9df1cd4306e2", "event_pair_mention": ""}, {"from_node": "46808a75640a9c36f60a9df1cd4306e2", "event_pair": "市场利率上行幅度较大->去年上半年封闭式非保本理财产品兑付客户收益率上升", "score": 1.0, "to_node": "61191439c8a2ad0d33b7073bee7cf8ba", "event_pair_mention": ""}, {"from_node": "46808a75640a9c36f60a9df1cd4306e2", "event_pair": "货币市场利率的上行->债市杠杆资金成本上行", "score": 1.0, "to_node": "532c8bb5ec2019214855a2f5a66a720f", "event_pair_mention": ""}, {"from_node": "46808a75640a9c36f60a9df1cd4306e2", "event_pair": "市场利率持续上行->资本市场下挫", "score": 1.0, "to_node": "b1091facde8d4b9f2530668fa625d603", "event_pair_mention": ""}, {"from_node": "46808a75640a9c36f60a9df1cd4306e2", "event_pair": "市场利率上升->基金本金损失的风险较小", "score": 1.0, "to_node": "477c0392c35e838f94c7cd40bd4e7db0", "event_pair_mention": ""}, {"from_node": "46808a75640a9c36f60a9df1cd4306e2", "event_pair": "市场利率快速上行->无收益率资产黄金进一步遭到抛弃", "score": 1.0, "to_node": "2bf324afa0526ce8bb059969bfc9e19b", "event_pair_mention": ""}, {"from_node": "ae606c5f08b200e965f898c30c876d86", "event_pair": "食品价格下跌->分析师认为菲律宾上个月通货膨胀可能会放缓至3%以下", "score": 0.5, "to_node": "b0386c67ba204b914b589bbfec3f654f", "event_pair_mention": ""}, {"from_node": "ae606c5f08b200e965f898c30c876d86", "event_pair": "食品价格下跌->3月消费者价格指数（cpi）同比上涨0.4%，创下", "score": 0.5, "to_node": "d6e85be31bc83cdb5355fa9fafdc7de6", "event_pair_mention": ""}, {"from_node": "997c605be56f943a3dbdcbd456e96c5d", "event_pair": "猪肉价格企稳回落->禽肉价格环比下降4.5%", "score": 1.0, "to_node": "344783352c3f708a7f82351dd4a2b7ce", "event_pair_mention": ""}]
+
+        t1_text = JSON.stringify(node_obj)
+        document.getElementById("t1").value = t1_text
+
+        t2_text = JSON.stringify(edge_obj)
+        document.getElementById("t2").value = t2_text;
+
+        contentHook = function(item){
+            return "<div>"+item.name+"</div>"
+        }
+        function render() {
+            try {
+                $("svg").remove()
+                var data = {}
+                data.nodes = JSON.parse(document.getElementById("t1").value);
+                data.links = JSON.parse(document.getElementById("t2").value);
+                var config = {
+                    //鼠标mouseover后的弹窗
+                    content: document.getElementById("t5").value,
+                    contentHook: null,
+                    //节点配色方案（可为空)
+                    nodeColor: document.getElementById("t3").value ? JSON.parse(document.getElementById("t3").value) : null,
+                    //连接线配色方案（可为空）
+                    linkColor: document.getElementById("t4").value ? JSON.parse(document.getElementById("t4").value) : null,
+                    width: document.getElementById("container").clientWidth,
+                    height: document.getElementById("container").clientHeight
+                }
+                initKG(data, config, "#container")
+            } catch (err) {
+                Materialize.toast('渲染存在异常', 2000)
+                console.info(err)
+            }
+        }
+        render();
+
+    </script>
+
+</body>
